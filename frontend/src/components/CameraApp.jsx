@@ -92,12 +92,76 @@ const CameraApp = () => {
     setSettings(prev => ({ ...prev, [key]: value }));
   };
 
-  const toggleRecording = () => {
-    updateSetting('recording', !settings.recording);
+  const toggleRecording = async () => {
+    try {
+      if (!settings.recording) {
+        // Start recording
+        const recordingData = {
+          fileName: `recording_${Date.now()}.mp4`,
+          resolution: status.resolution,
+          frameRate: `${status.fps}p`,
+          settings: settings
+        };
+        
+        const recording = await cameraApi.startRecording(recordingData);
+        setCurrentRecording(recording);
+        updateSetting('recording', true);
+        
+        toast({
+          title: "Recording Started",
+          description: `Recording ${recording.fileName}`,
+        });
+      } else {
+        // Stop recording
+        if (currentRecording) {
+          await cameraApi.stopRecording(currentRecording.id);
+          updateSetting('recording', false);
+          setCurrentRecording(null);
+          
+          toast({
+            title: "Recording Stopped",
+            description: "Recording saved successfully",
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling recording:', error);
+      toast({
+        title: "Recording Error",
+        description: "Failed to toggle recording",
+        variant: "destructive"
+      });
+    }
   };
 
   const toggleMode = () => {
     updateSetting('mode', settings.mode === 'manual' ? 'auto' : 'manual');
+  };
+
+  const saveSettings = async () => {
+    try {
+      setIsLoading(true);
+      const settingsData = {
+        name: `Settings_${Date.now()}`,
+        ...settings
+      };
+      
+      await cameraApi.createSettings(settingsData);
+      
+      toast({
+        title: "Settings Saved",
+        description: "Camera settings saved successfully",
+      });
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      toast({
+        title: "Save Error",
+        description: "Failed to save settings",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
