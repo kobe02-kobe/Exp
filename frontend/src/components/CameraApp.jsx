@@ -41,8 +41,37 @@ const CameraApp = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Load camera capabilities and status on component mount
+    const initializeCamera = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Load capabilities
+        const capsData = await cameraApi.getCameraCapabilities();
+        setCapabilities(capsData);
+        
+        // Load current status
+        const statusData = await cameraApi.getCameraStatus();
+        setStatus(prev => ({ ...prev, ...statusData }));
+        
+      } catch (error) {
+        console.error('Error initializing camera:', error);
+        toast({
+          title: "Camera Error",
+          description: "Failed to initialize camera. Using offline mode.",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    initializeCamera();
+  }, [toast]);
+
+  useEffect(() => {
     let interval;
-    if (settings.recording) {
+    if (settings.recording && currentRecording) {
       interval = setInterval(() => {
         setRecordingTime(prev => prev + 1);
       }, 1000);
@@ -50,7 +79,7 @@ const CameraApp = () => {
       setRecordingTime(0);
     }
     return () => clearInterval(interval);
-  }, [settings.recording]);
+  }, [settings.recording, currentRecording]);
 
   const formatTime = (seconds) => {
     const hrs = Math.floor(seconds / 3600);
