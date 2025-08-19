@@ -258,14 +258,25 @@ const CameraApp = () => {
               <TabsContent value="manual" className="space-y-6 mt-0">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Manual Controls</h3>
-                  <Button
-                    onClick={toggleMode}
-                    variant="outline"
-                    size="sm"
-                    className={settings.mode === 'manual' ? 'bg-blue-600/20 border-blue-600' : ''}
-                  >
-                    {settings.mode.toUpperCase()}
-                  </Button>
+                  <div className="flex space-x-2">
+                    <Button
+                      onClick={saveSettings}
+                      variant="outline"
+                      size="sm"
+                      disabled={isLoading}
+                      className="bg-green-600/20 border-green-600 text-green-400"
+                    >
+                      {isLoading ? <Loader className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                    </Button>
+                    <Button
+                      onClick={toggleMode}
+                      variant="outline"
+                      size="sm"
+                      className={settings.mode === 'manual' ? 'bg-blue-600/20 border-blue-600' : ''}
+                    >
+                      {settings.mode.toUpperCase()}
+                    </Button>
+                  </div>
                 </div>
 
                 {/* ISO Control */}
