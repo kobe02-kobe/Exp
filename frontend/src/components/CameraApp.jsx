@@ -364,7 +364,18 @@ const CameraApp = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {mockWhiteBalanceOptions.map(wb => (
+                        {capabilities?.whiteBalanceOptions?.map(wb => (
+                          <SelectItem key={wb.id} value={wb.id}>
+                            {wb.name} ({wb.temp}K)
+                          </SelectItem>
+                        )) || [
+                          {id: "auto", name: "Auto", temp: 5500},
+                          {id: "daylight", name: "Daylight", temp: 5500},
+                          {id: "cloudy", name: "Cloudy", temp: 6500},
+                          {id: "tungsten", name: "Tungsten", temp: 3200},
+                          {id: "fluorescent", name: "Fluorescent", temp: 4000},
+                          {id: "flash", name: "Flash", temp: 5500}
+                        ].map(wb => (
                           <SelectItem key={wb.id} value={wb.id}>
                             {wb.name} ({wb.temp}K)
                           </SelectItem>
