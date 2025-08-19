@@ -302,7 +302,9 @@ const CameraApp = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {mockApertureValues.map(aperture => (
+                        {capabilities?.apertureValues?.map(aperture => (
+                          <SelectItem key={aperture} value={aperture.toString()}>f/{aperture}</SelectItem>
+                        )) || [1.4, 2, 2.8, 4, 5.6, 8, 11, 16].map(aperture => (
                           <SelectItem key={aperture} value={aperture.toString()}>f/{aperture}</SelectItem>
                         ))}
                       </SelectContent>
