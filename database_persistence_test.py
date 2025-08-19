@@ -5,8 +5,6 @@ Database Persistence and Concurrent Operations Test
 
 import requests
 import json
-import asyncio
-import aiohttp
 from datetime import datetime
 
 BACKEND_URL = "https://pro-camera-1.preview.emergentagent.com/api"
