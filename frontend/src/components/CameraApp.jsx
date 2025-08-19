@@ -13,10 +13,32 @@ import cameraApi from '../services/cameraApi';
 const mockCameraStream = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmEyYTJhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3R5bGU9InN0b3AtY29sb3I6IzM3MzczNztzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmEyYTJhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KICA8Y2lyY2xlIGN4PSI0MDAiIGN5PSIzMDAiIHI9IjUwIiBmaWxsPSIjNWY1ZjVmIiBvcGFjaXR5PSIwLjMiLz4KICA8dGV4dCB4PSI0MDAiIHk9IjMxMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOWY5ZjlmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WSUVXRKLOREVSPC90ZXh0Pgo8L3N2Zz4=";
 
 const CameraApp = () => {
-  const [settings, setSettings] = useState(mockCameraSettings);
-  const [status, setStatus] = useState(mockCameraStatus);
+  const [settings, setSettings] = useState({
+    iso: 800,
+    aperture: 2.8,
+    shutterSpeed: "1/60",
+    focus: 85,
+    whiteBalance: "daylight",
+    exposure: 0,
+    mode: "manual",
+    recording: false,
+    zoom: 1.0
+  });
+  const [status, setStatus] = useState({
+    battery: 85,
+    storage: "64GB",
+    storageUsed: 23.5,
+    recordingTime: "00:00:00",
+    fps: 24,
+    resolution: "4K UHD",
+    temperature: "Normal"
+  });
+  const [capabilities, setCapabilities] = useState(null);
+  const [currentRecording, setCurrentRecording] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     let interval;
