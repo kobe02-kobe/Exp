@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Square, Settings, Camera, Video, Zap, Battery, HardDrive } from 'lucide-react';
+import { Play, Square, Settings, Camera, Video, Zap, Battery, HardDrive, Save, Loader } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Slider } from './ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { mockCameraSettings, mockCameraModes, mockISOValues, mockApertureValues, mockShutterSpeeds, mockWhiteBalanceOptions, mockCameraStatus, mockCameraStream } from '../mock';
+import { useToast } from '../hooks/use-toast';
+import cameraApi from '../services/cameraApi';
+
+// Fallback stream for viewfinder
+const mockCameraStream = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmEyYTJhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3R5bGU9InN0b3AtY29sb3I6IzM3MzczNztzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmEyYTJhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KICA8Y2lyY2xlIGN4PSI0MDAiIGN5PSIzMDAiIHI9IjUwIiBmaWxsPSIjNWY1ZjVmIiBvcGFjaXR5PSIwLjMiLz4KICA8dGV4dCB4PSI0MDAiIHk9IjMxMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOWY5ZjlmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WSUVXRKLOREVSPC90ZXh0Pgo8L3N2Zz4=";
 
 const CameraApp = () => {
   const [settings, setSettings] = useState(mockCameraSettings);
