@@ -324,7 +324,9 @@ const CameraApp = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {mockShutterSpeeds.map(speed => (
+                        {capabilities?.shutterSpeeds?.map(speed => (
+                          <SelectItem key={speed} value={speed}>{speed}</SelectItem>
+                        )) || ["1/4000", "1/2000", "1/1000", "1/500", "1/250", "1/125", "1/60", "1/30", "1/15", "1/8"].map(speed => (
                           <SelectItem key={speed} value={speed}>{speed}</SelectItem>
                         ))}
                       </SelectContent>
