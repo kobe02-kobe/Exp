@@ -1,0 +1,104 @@
+[
+  {
+    "test": "Basic API Connectivity",
+    "success": true,
+    "details": "Response: Professional Camera API - Ready to capture!",
+    "timestamp": "2025-08-19T18:04:59.199852"
+  },
+  {
+    "test": "Camera Capabilities",
+    "success": true,
+    "details": "All required fields present. ISO values: 8, Modes: 5",
+    "timestamp": "2025-08-19T18:04:59.211264"
+  },
+  {
+    "test": "Create Camera Settings",
+    "success": true,
+    "details": "Created settings with ID: 18bfff25-1670-4542-afde-38cb2b0c7e85",
+    "timestamp": "2025-08-19T18:04:59.239461"
+  },
+  {
+    "test": "Get Specific Camera Settings",
+    "success": true,
+    "details": "Retrieved settings: Professional Portrait Setup",
+    "timestamp": "2025-08-19T18:04:59.292535"
+  },
+  {
+    "test": "Get All Camera Settings",
+    "success": true,
+    "details": "Retrieved 1 settings",
+    "timestamp": "2025-08-19T18:04:59.304723"
+  },
+  {
+    "test": "Update Camera Settings",
+    "success": true,
+    "details": "Updated settings: Updated Professional Portrait Setup",
+    "timestamp": "2025-08-19T18:04:59.360486"
+  },
+  {
+    "test": "Start Recording",
+    "success": true,
+    "details": "Started recording: professional_shoot_001.mp4",
+    "timestamp": "2025-08-19T18:04:59.385131"
+  },
+  {
+    "test": "Stop Recording",
+    "success": true,
+    "details": "Stopped recording. Duration: 2.029786s, Size: 1.014893MB",
+    "timestamp": "2025-08-19T18:05:01.399602"
+  },
+  {
+    "test": "Get Specific Recording",
+    "success": true,
+    "details": "Retrieved recording: professional_shoot_001.mp4",
+    "timestamp": "2025-08-19T18:05:01.451568"
+  },
+  {
+    "test": "Get All Recordings",
+    "success": true,
+    "details": "Retrieved 1 recordings",
+    "timestamp": "2025-08-19T18:05:01.504574"
+  },
+  {
+    "test": "Get Camera Status",
+    "success": true,
+    "details": "Battery: 85%, Storage: 64GB, Temp: Normal",
+    "timestamp": "2025-08-19T18:05:01.515539"
+  },
+  {
+    "test": "Update Camera Status",
+    "success": true,
+    "details": "Updated status - Battery: 75%, Storage Used: 45.2GB",
+    "timestamp": "2025-08-19T18:05:01.526176"
+  },
+  {
+    "test": "Data Validation - Invalid Settings",
+    "success": false,
+    "details": "Should have rejected invalid data but got status: 500",
+    "timestamp": "2025-08-19T18:05:01.573723"
+  },
+  {
+    "test": "Error Handling - Non-existent Settings",
+    "success": true,
+    "details": "Properly returned 404 for non-existent settings",
+    "timestamp": "2025-08-19T18:05:01.625438"
+  },
+  {
+    "test": "Error Handling - Non-existent Recording",
+    "success": true,
+    "details": "Properly returned 404 for non-existent recording",
+    "timestamp": "2025-08-19T18:05:01.636264"
+  },
+  {
+    "test": "Cleanup Settings 18bfff25-1670-4542-afde-38cb2b0c7e85",
+    "success": true,
+    "details": "Successfully deleted test settings",
+    "timestamp": "2025-08-19T18:05:01.687248"
+  },
+  {
+    "test": "Cleanup Recording db56939c-209f-4534-86e2-0fb45378336e",
+    "success": true,
+    "details": "Successfully deleted test recording",
+    "timestamp": "2025-08-19T18:05:01.740107"
+  }
+]
