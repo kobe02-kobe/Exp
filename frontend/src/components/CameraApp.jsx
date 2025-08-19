@@ -280,7 +280,9 @@ const CameraApp = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {mockISOValues.map(iso => (
+                        {capabilities?.isoValues?.map(iso => (
+                          <SelectItem key={iso} value={iso.toString()}>{iso}</SelectItem>
+                        )) || [100, 200, 400, 800, 1600, 3200, 6400, 12800].map(iso => (
                           <SelectItem key={iso} value={iso.toString()}>{iso}</SelectItem>
                         ))}
                       </SelectContent>
