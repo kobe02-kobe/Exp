@@ -7,12 +7,12 @@
     <meta name="description" content="A product of emergent.sh" />
     <title>Emergent | Fullstack App</title>
 
-    <!-- Link ke manifest.json -->
-    <link rel="manifest" href="/manifest.json" />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <!-- Ikon PWA -->
-    <link rel="icon" href="/icons/icon-192x192.png" />
-    <link rel="apple-touch-icon" href="/icons/icon-512x512.png" />
+    <!-- PWA Icons -->
+    <link rel="icon" href="%PUBLIC_URL%/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/icon-512x512.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Emergent" />
@@ -22,17 +22,105 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
-    <!-- Badge + Analytics (punya kamu) -->
-    ... (kode badge & posthog tetap) ...
+    <!-- Emergent Badge -->
+    <a
+      id="emergent-badge"
+      target="_blank"
+      href="https://app.emergent.sh/?utm_source=emergent-badge"
+      style="
+        display: flex !important;
+        align-items: center !important;
+        position: fixed !important;
+        bottom: 20px;
+        right: 20px;
+        text-decoration: none;
+        padding: 6px 10px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+        font-size: 12px !important;
+        z-index: 9999 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 8px !important;
+        background-color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+      "
+    >
+      <div style="display: flex; flex-direction: row; align-items: center">
+        <img
+          style="width: 20px; height: 20px; margin-right: 8px"
+          src="%PUBLIC_URL%/logo192.png"
+        />
+        <p
+          style="
+            color: #000000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+              Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+            font-size: 12px !important;
+            margin-bottom: 0;
+          "
+        >
+          Made with Emergent
+        </p>
+      </div>
+    </a>
 
-    <!-- Register service worker -->
+    <!-- PostHog Analytics -->
+    <script>
+      !(function (t, e) {
+        var o, n, p, r;
+        e.__SV ||
+          ((window.posthog = e),
+          (e._i = []),
+          (e.init = function (i, s, a) {
+            function g(t, e) {
+              var o = e.split(".");
+              2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                (t[e] = function () {
+                  t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+                });
+            }
+            (p = t.createElement("script")).type = "text/javascript";
+            p.crossOrigin = "anonymous";
+            p.async = !0;
+            p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js";
+            r = t.getElementsByTagName("script")[0];
+            r.parentNode.insertBefore(p, r);
+            var u = e;
+            void 0 !== a ? (u = e[a] = []) : (a = "posthog");
+            u.people = u.people || [];
+            u.toString = function (t) {
+              var e = "posthog";
+              return (
+                "posthog" !== a && (e += "." + a),
+                t || (e += " (stub)"),
+                e
+              );
+            };
+            u.people.toString = function () {
+              return u.toString(1) + ".people (stub)";
+            };
+            var methods = "init capture identify".split(" ");
+            methods.forEach(function (method) {
+              g(u, method);
+            });
+            e._i.push([i, s, a]);
+          }),
+          (e.__SV = 1));
+      })(document, window.posthog || []);
+      posthog.init("phc_yJW1VjHGGwmCbbrtczfqqNxgBDbhlhOWcdzcIJEOTFE", {
+        api_host: "https://us.i.posthog.com",
+        person_profiles: "identified_only",
+      });
+    </script>
+
+    <!-- Service Worker Registration -->
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
+        window.addEventListener("load", function () {
           navigator.serviceWorker
-            .register("/sw.js")
-            .then(() => console.log("✅ Service Worker Registered"))
-            .catch(err => console.log("❌ SW registration failed:", err));
+            .register("%PUBLIC_URL%/sw.js")
+            .then(() => console.log("Service Worker Registered"))
+            .catch(err => console.error("SW registration failed:", err));
         });
       }
     </script>
