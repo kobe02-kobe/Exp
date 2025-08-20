@@ -119,7 +119,7 @@
         window.addEventListener("load", function () {
           navigator.serviceWorker
             .register("%PUBLIC_URL%/sw.js")
-            .then(() => console.log("Service Worker Registered"))
+            .then(() => console.log("✅ Service Worker Registered"))
             .catch(err => console.error("SW registration failed:", err));
         });
       }
